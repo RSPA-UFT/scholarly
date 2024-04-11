@@ -286,6 +286,10 @@ class PublicationParser(object):
             if soup.find('a', class_='gsc_oci_title_link'):
                 publication['pub_url'] = soup.find(
                     'a', class_='gsc_oci_title_link')['href']
+            if soup.find('div', class_='gsc_oci_title_ggi'):
+                link = soup.find('a', attrs={'data-clk': True})
+                if link:
+                    publication['pdf_url'] = link['href']
             for item in soup.find_all('div', class_='gs_scl'):
                 key = item.find(class_='gsc_oci_field').text.strip().lower()
                 val = item.find(class_='gsc_oci_value')

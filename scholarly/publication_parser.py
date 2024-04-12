@@ -202,6 +202,10 @@ class PublicationParser(object):
         if title.find('a'):
             publication['pub_url'] = title.find('a')['href']
 
+        pdf_div = __data.find('div', class_='gs_ggs gs_fl')
+        if pdf_div and pdf_div.find('a', href=True):
+            publication['pdf_url'] = pdf_div.find('a')['href']
+
         author_div_element = databox.find('div', class_='gs_a')
         authorinfo = author_div_element.text
         authorinfo = authorinfo.replace(u'\xa0', u' ')       # NBSP

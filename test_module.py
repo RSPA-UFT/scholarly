@@ -724,7 +724,7 @@ class TestScholarlyWithProxy(unittest.TestCase):
         pubs = list(scholarly.search_pubs('"naive physics" stability "3d shape"'))
         # Check that the first entry in pubs is the same as pub.
         # Checking for quality holds for non-dict entries only.
-        for key in {'author_id', 'pub_url', 'num_citations'}:
+        for key in {'author_id', 'pub_url', 'pdf_url', 'num_citations'}:
             self.assertEqual(pub[key], pubs[0][key])
         for key in {'title', 'pub_year', 'venue'}:
             self.assertEqual(pub['bib'][key], pubs[0]['bib'][key])
@@ -767,6 +767,7 @@ class TestScholarlyWithProxy(unittest.TestCase):
         self.assertTrue(f['bib']['publisher'] == u'The Association for Research in Vision and Ophthalmology')
         self.assertTrue(f['bib']['title'] == u'Creating correct blur and its effect on accommodation')
         self.assertTrue(f['pub_url'] == u'https://jov.arvojournals.org/article.aspx?articleid=2701817')
+        self.assertTrue(f['pdf_url'] == u'https://jov.arvojournals.org/arvo/content_public/journal/jov/937491/i1534-7362-18-9-1.pdf')
         self.assertTrue(f['bib']['volume'] == '18')
         self.assertTrue(f['bib']['pub_year'] == u'2018')
 
@@ -783,6 +784,7 @@ class TestScholarlyWithProxy(unittest.TestCase):
         # Typically, the same publication is returned as the most related article
         same_article = next(related_articles)
         self.assertEqual(pub["pub_url"], same_article["pub_url"])
+        self.assertEqual(pub["pdf_url"], same_article["pdf_url"])
         for key in {'title', 'pub_year'}:
             self.assertEqual(str(pub['bib'][key]), (same_article['bib'][key]))
 
@@ -801,7 +803,7 @@ class TestScholarlyWithProxy(unittest.TestCase):
         related_articles = scholarly.get_related_articles(pub)
         # Typically, the same publication is returned as the most related article
         same_article = next(related_articles)
-        for key in {'author_id', 'pub_url', 'num_citations'}:
+        for key in {'author_id', 'pub_url', 'pdf_url', 'num_citations'}:
             self.assertEqual(pub[key], same_article[key])
         for key in {'title', 'pub_year'}:
             self.assertEqual(pub['bib'][key], same_article['bib'][key])

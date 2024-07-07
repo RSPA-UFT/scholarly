@@ -202,6 +202,10 @@ class PublicationParser(object):
         if title.find('a'):
             publication['pub_url'] = title.find('a')['href']
 
+        pdf_div = __data.find('div', class_='gs_ggs gs_fl')
+        if pdf_div and pdf_div.find('a', href=True):
+            publication['pdf_url'] = pdf_div.find('a')['href']
+
         author_div_element = databox.find('div', class_='gs_a')
         authorinfo = author_div_element.text
         authorinfo = authorinfo.replace(u'\xa0', u' ')       # NBSP
@@ -286,6 +290,10 @@ class PublicationParser(object):
             if soup.find('a', class_='gsc_oci_title_link'):
                 publication['pub_url'] = soup.find(
                     'a', class_='gsc_oci_title_link')['href']
+            if soup.find('div', class_='gsc_oci_title_ggi'):
+                link = soup.find('a', attrs={'data-clk': True})
+                if link:
+                    publication['pdf_url'] = link['href']
             for item in soup.find_all('div', class_='gs_scl'):
                 key = item.find(class_='gsc_oci_field').text.strip().lower()
                 val = item.find(class_='gsc_oci_value')

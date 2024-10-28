@@ -20,7 +20,7 @@ class PublicationSource(str, Enum):
 
     "PUBLICATION SEARCH SNIPPET".
     This form captures the publication  when it appears as a "snippet" in
-    the context of the resuls of a publication search. For example:
+    the context of the results of a publication search. For example:
 
     Publication search: https://scholar.google.com/scholar?hl=en&q=adaptive+fraud+detection&btnG=&as_sdt=0%2C33
 
